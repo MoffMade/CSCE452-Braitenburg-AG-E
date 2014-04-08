@@ -122,7 +122,7 @@ QPointF Robot::rightSensorLocation()
 void Robot::moveRobot(QGenericMatrix<1, 2, double> intensity)
 {
     //dtheta = (right - left) / width
-    double dtheta = (180 / 3.141) * (intensity(1,0) - intensity(0,0)) / m_body.width();
+    double dtheta = (180 / PI) * (intensity(1,0) - intensity(0,0)) / m_body.width();
 
     //dx = (right + left)/2 + cos(theta)
 
