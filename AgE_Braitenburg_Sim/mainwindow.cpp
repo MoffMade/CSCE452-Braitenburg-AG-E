@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->simulatorView->setScene(&simulatorScene);
     ui->simulatorView->setSceneRect(0,0,800,600);
     connect(updateTimer,SIGNAL(timeout()),this,SLOT(timedUpdate()));
-    updateTimer->start(1);
+    updateTimer->start(100);
     ui->simulatorView->show();
 }
 
