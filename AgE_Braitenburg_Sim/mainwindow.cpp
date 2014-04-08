@@ -35,7 +35,7 @@ void MainWindow::on_addVehicle_clicked()
     //Allow additional vehicle onto sim space
     double kMatValues[]={ui->kMat00->value(),ui->kMat01->value(),ui->kMat10->value(),ui->kMat11->value()};
     QGenericMatrix<2,2,double> kMat(kMatValues);
-    QPoint botLoc=*(new QPoint(ui->botX->value(),ui->botY->value()));
+    QPointF botLoc=*(new QPointF(ui->botX->value(),ui->botY->value()));
     Robot* newBot=new Robot(getLights(),kMat,botLoc);
     robots.push_back(newBot);
     simulatorScene.addItem(newBot);
@@ -48,6 +48,6 @@ void MainWindow::timedUpdate(){
     ui->simulatorView->update();
 }
 
-QVector<QPoint>* MainWindow::getLights(){
+QVector<QPointF>* MainWindow::getLights(){
     return &lightPoints;
 }

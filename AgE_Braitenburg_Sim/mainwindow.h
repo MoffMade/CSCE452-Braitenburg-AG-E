@@ -20,7 +20,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    QVector<QPoint>* getLights();
+    QVector<QPointF>* getLights();
 
 
 private slots:
@@ -32,7 +32,7 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene simulatorScene;
     QVector<LightSource*> lights;
-    QVector<QPoint>lightPoints;
+    QVector<QPointF>lightPoints;
     QVector<Robot*> robots; //Replace string with Robot class
     QTimer* updateTimer;
 

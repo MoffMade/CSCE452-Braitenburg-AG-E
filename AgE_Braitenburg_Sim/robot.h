@@ -4,7 +4,7 @@
 #include <QGraphicsItem>
 #include <QGenericMatrix>
 
-typedef QPoint Light;
+typedef QPointF Light;
 
 class Robot : public QGraphicsItem
 {

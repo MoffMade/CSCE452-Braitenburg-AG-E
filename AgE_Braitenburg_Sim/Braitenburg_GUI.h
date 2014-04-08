@@ -9,11 +9,11 @@ class LightSource : public QGraphicsEllipseItem{
 public:
     LightSource(QGraphicsItem* parent = 0);
     LightSource(double x, double y, QGraphicsItem* parent = 0);
-    QPoint getLoc();
-    void setLoc(QPoint newLoc);
+    QPointF getLoc();
+    void setLoc(QPointF newLoc);
 
 private:
-    QPoint loc;
+    QPointF loc;
 };
 
 #endif // BRAITENBURG_GUI_H

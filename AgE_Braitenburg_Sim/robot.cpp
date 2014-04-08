@@ -1,6 +1,7 @@
 #include "robot.h"
 #include <QPainter>
 #include <qmath.h>
+#define PI 3.14159265359
 
 Robot::Robot(QVector<Light> *lights, QGenericMatrix<2,2,double> K, QPointF position, QGraphicsItem *parent) :
     QGraphicsItem(parent)
@@ -43,7 +44,7 @@ Robot::Robot(QVector<Light> *lights, QGenericMatrix<2,2,double> K, QPointF posit
 
 QRectF Robot::boundingRect() const
 {
-    return QRectF(0,0,100,100);   //defines the size of the robots drawing
+    return QRectF(0,0,50,50);   //defines the size of the robots drawing
 }
 
 void Robot::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget)
@@ -124,17 +125,19 @@ void Robot::moveRobot(QGenericMatrix<1, 2, double> intensity)
     double dtheta = (intensity(1,0) - intensity(0,0)) / m_body.width();
 
     //dx = (right + left)/2 + cos(theta)
-    double dx = (intensity(1,0) + intensity(0,0)) / 2 * qCos(m_theta);
+    double dx,dy;
+   \
+    dx = ((intensity(1,0) + intensity(0,0)) / 2) * (qSin(PI*rotation()/180 + dtheta)-qSin(PI*rotation()/180));
 
     //dy = (right + left)/2 + sin(theta)
-    double dy = (intensity(1,0) + intensity(0,0)) / 2 * qSin(m_theta);
+    dy = ((intensity(1,0) + intensity(0,0)) / 2) * (qCos(PI*rotation()/180 + dtheta)-qCos(PI*rotation()/180));
 
     setRotation(rotation() + dtheta);
 
-    moveBy(dx,dy);
+    moveBy(dx,-dy);
 }
 
 double Robot::distance(QPointF p1, QPointF p2)
 {
-    return qSqrt( (p1.x()-p2.x()) * (p1.x()-p2.x()) + (p1.y()-p2.y()) * (p1.y()-p2.y()) );
+    return abs(qSqrt( (p1.x()-p2.x()) * (p1.x()-p2.x()) + (p1.y()-p2.y()) * (p1.y()-p2.y()) ));
 }
