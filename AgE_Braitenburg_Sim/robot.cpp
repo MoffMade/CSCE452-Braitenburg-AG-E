@@ -36,12 +36,9 @@ Robot::Robot(QVector<Light> *lights, QMatrix2x2 K, QPointF position, QGraphicsIt
     left = 3 * (m_body.width() - width) / 4;
     m_rightSensor = QRectF(left, top, width, height);
 
-    //place robot at correct position
-    m_body.moveCenter(QPointF(100,333));
-    m_leftWheel.moveCenter(m_leftWheel.center() + position);
-    m_rightWheel.moveCenter(m_rightWheel.center() + position);
-    m_leftSensor.moveCenter(m_leftSensor.center() + position);
-    m_rightSensor.moveCenter(m_rightSensor.center() + position);
+    //set position
+    setPos(position);
+
 }
 
 QRectF Robot::boundingRect() const
@@ -77,9 +74,6 @@ void Robot::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, Q
     painter->setBrush(sensorBrush);
     painter->drawRect(m_leftSensor);
     painter->drawRect(m_rightSensor);
-
-    //set origin point to the center of the robot
-    setTransformOriginPoint(body.center());
 }
 
 void Robot::update()
