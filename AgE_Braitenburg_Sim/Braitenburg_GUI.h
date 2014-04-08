@@ -7,9 +7,9 @@
 class LightSource : public QGraphicsEllipseItem{
 
 public:
-    LightSource();
-    LightSource(double x, double y);
-    QPoint* getLoc();
+    LightSource(QGraphicsItem* parent = 0);
+    LightSource(double x, double y, QGraphicsItem* parent = 0);
+    QPoint getLoc();
     void setLoc(QPoint newLoc);
 
 private:

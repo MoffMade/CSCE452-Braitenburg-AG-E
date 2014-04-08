@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QGenericMatrix>
+#include <QMouseEvent>
 #include <Braitenburg_GUI.h>
 #include <vector>
 
@@ -18,17 +20,20 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    std::vector<QPoint*> getLights();
+    QVector<QPoint>* getLights();
+
 
 private slots:
     void on_addLight_clicked();
-
     void on_addVehicle_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene simulatorScene;
-    std::vector<LightSource*> lights;
-    std::vector<std::string> robots; //Replace string with Robot class
+    QVector<LightSource*> lights;
+    QVector<QPoint>lightPoints;
+    QVector<std::string> robots; //Replace string with Robot class
+
 };
 
 #endif // MAINWINDOW_H
