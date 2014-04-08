@@ -32,7 +32,7 @@ void MainWindow::on_addVehicle_clicked()
     //Allow additional vehicle onto sim space
     std::cout<<"Add Vehicle Pressed.\n";
 
-    float kMatValues[]={ui->kMat00->value(),ui->kMat01->value(),ui->kMat10->value(),ui->kMat11->value()};
+    double kMatValues[]={ui->kMat00->value(),ui->kMat01->value(),ui->kMat10->value(),ui->kMat11->value()};
     QMatrix2x2 kMat(kMatValues);
     QPoint botLoc=*(new QPoint(ui->botX->value(),ui->botY->value()));
     //Robot* newBot=new Robot(getLights(),kMat,botLoc);
