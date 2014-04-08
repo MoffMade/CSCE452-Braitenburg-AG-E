@@ -124,19 +124,18 @@ void Robot::moveRobot(QGenericMatrix<1, 2, double> intensity)
     //dtheta = (right - left) / width
     double dtheta = (180 / PI) * (intensity(1,0) - intensity(0,0)) / m_body.width();
 
-    //dx = (right + left)/2 + cos(theta)
-
     double dx,dy;
  
-    dx = ((intensity(1,0) + intensity(0,0)) / 2) * (qSin(PI*rotation()/180 + dtheta)-qSin(PI*rotation()/180));
+    //dx = (180/PI) * ((intensity(1,0) + intensity(0,0)) / 2) * (qSin(PI*rotation()/180 + dtheta)-qSin(PI*rotation()/180));
+    dy = (intensity(1,0) + intensity(0,0) / 2) * qCos(PI*-rotation()/180);
 
-    //dy = (right + left)/2 + sin(theta)
-    dy = ((intensity(1,0) + intensity(0,0)) / 2) * (qCos(PI*rotation()/180 + dtheta)-qCos(PI*rotation()/180));
+    //dy = (180/PI) * ((intensity(1,0) + intensity(0,0)) / 2) * (qCos(PI*rotation()/180 + dtheta)-qCos(PI*rotation()/180));
+    dx = (intensity(1,0) + intensity(0,0) / 2) * qSin(PI*-rotation()/180);
 
     m_theta += dtheta;
-    setRotation(rotation() + dtheta);
 
-    moveBy(dx,-dy);
+    setPos(x() + dx,y() + dy);
+    setRotation(rotation() - dtheta);
 }
 
 double Robot::distance(QPointF p1, QPointF p2)
