@@ -6,19 +6,6 @@
 
 typedef QPoint Light;
 
-struct Position
-{
-    Position(){}
-    Position(double xval, double yval, double thetaval)
-    {
-        X = xval; Y = yval; theta = thetaval;
-    }
-
-    double X;
-    double Y;
-    double theta;
-};
-
 class Robot : public QGraphicsItem
 {
 
@@ -27,8 +14,8 @@ private:
     //pointer to light sources
     QVector<Light> *m_lights;
 
-    //current position of the robot, includes x, y, and rotation
-    Position m_position;
+    //robot rotations
+    double m_theta;
 
     //K matrix representation
     QMatrix2x2 m_K;
@@ -51,7 +38,7 @@ public:
     //constructor
     //takes pointer to vector of lights, K matrix, and an initial position.
     //TODO: Qpoint instead of Position, assume angle = 0;
-    Robot(QVector<Light> *lights, QMatrix2x2 K, Position position, QGraphicsItem *parent = 0);
+    Robot(QVector<Light> *lights, QMatrix2x2 K, QPointF position, QGraphicsItem *parent = 0);
 
     //updates the robot's position and rotation
     void update();

@@ -2,13 +2,12 @@
 #include <QPainter>
 #include <qmath.h>
 
-Robot::Robot(QVector<Light> *lights, QMatrix2x2 K, Position position, QGraphicsItem *parent) :
+Robot::Robot(QVector<Light> *lights, QMatrix2x2 K, QPointF position, QGraphicsItem *parent) :
     QGraphicsItem(parent)
 {
     m_lights = lights;
     m_K = K;
-    m_position = position;
-
+    m_theta = 0;
 
 
     //objects that are painted to paint a robot
@@ -32,9 +31,17 @@ Robot::Robot(QVector<Light> *lights, QMatrix2x2 K, Position position, QGraphicsI
     top = m_body.height() - height;
     m_leftSensor = QRectF(left, top, width, height);
 
+
     //right sensor
     left = 3 * (m_body.width() - width) / 4;
     m_rightSensor = QRectF(left, top, width, height);
+
+    //place robot at correct position
+    m_body.moveCenter(QPointF(100,333));
+    m_leftWheel.moveCenter(m_leftWheel.center() + position);
+    m_rightWheel.moveCenter(m_rightWheel.center() + position);
+    m_leftSensor.moveCenter(m_leftSensor.center() + position);
+    m_rightSensor.moveCenter(m_rightSensor.center() + position);
 }
 
 QRectF Robot::boundingRect() const
@@ -123,10 +130,10 @@ void Robot::moveRobot(QGenericMatrix<1, 2, double> intensity)
     double dtheta = (intensity(1,0) - intensity(0,0)) / m_body.width();
 
     //dx = (right + left)/2 + cos(theta)
-    double dx = (intensity(1,0) + intensity(0,0)) / 2 * qCos(m_position.theta);
+    double dx = (intensity(1,0) + intensity(0,0)) / 2 * qCos(m_theta);
 
     //dy = (right + left)/2 + sin(theta)
-    double dy = (intensity(1,0) + intensity(0,0)) / 2 * qSin(m_position.theta);
+    double dy = (intensity(1,0) + intensity(0,0)) / 2 * qSin(m_theta);
 
     setRotation(rotation() + dtheta);
 
