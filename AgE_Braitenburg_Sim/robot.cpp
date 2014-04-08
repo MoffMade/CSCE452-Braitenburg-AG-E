@@ -2,7 +2,7 @@
 #include <QPainter>
 #include <qmath.h>
 
-Robot::Robot(QVector<Light> *lights, QMatrix2x2 K, QPointF position, QGraphicsItem *parent) :
+Robot::Robot(QVector<Light> *lights, QGenericMatrix<2,2,double> K, QPointF position, QGraphicsItem *parent) :
     QGraphicsItem(parent)
 {
     m_lights = lights;

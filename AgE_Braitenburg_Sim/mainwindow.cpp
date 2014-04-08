@@ -7,9 +7,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    updateTimer=new QTimer(this);
     simulatorScene.setSceneRect(0,0,800,600);
     ui->simulatorView->setScene(&simulatorScene);
     ui->simulatorView->setSceneRect(0,0,800,600);
+    connect(updateTimer,SIGNAL(timeout()),this,SLOT(timedUpdate()));
+    updateTimer->start(1);
     ui->simulatorView->show();
 }
 
@@ -30,12 +33,19 @@ void MainWindow::on_addLight_clicked()
 void MainWindow::on_addVehicle_clicked()
 {
     //Allow additional vehicle onto sim space
-    std::cout<<"Add Vehicle Pressed.\n";
-
     double kMatValues[]={ui->kMat00->value(),ui->kMat01->value(),ui->kMat10->value(),ui->kMat11->value()};
-    QMatrix2x2 kMat(kMatValues);
+    QGenericMatrix<2,2,double> kMat(kMatValues);
     QPoint botLoc=*(new QPoint(ui->botX->value(),ui->botY->value()));
-    //Robot* newBot=new Robot(getLights(),kMat,botLoc);
+    Robot* newBot=new Robot(getLights(),kMat,botLoc);
+    robots.push_back(newBot);
+    simulatorScene.addItem(newBot);
+}
+
+void MainWindow::timedUpdate(){
+    for(int i=0; i<robots.size();i++){
+        robots[i]->update();
+    }
+    ui->simulatorView->update();
 }
 
 QVector<QPoint>* MainWindow::getLights(){

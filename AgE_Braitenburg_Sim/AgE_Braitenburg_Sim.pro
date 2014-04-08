@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    Braitenburg_GUI.cpp
+    Braitenburg_GUI.cpp \
+    robot.cpp
 
 HEADERS  += mainwindow.h \
-    Braitenburg_GUI.h
+    Braitenburg_GUI.h \
+    robot.h
 
 FORMS    += mainwindow.ui

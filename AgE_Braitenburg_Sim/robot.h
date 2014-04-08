@@ -18,7 +18,7 @@ private:
     double m_theta;
 
     //K matrix representation
-    QMatrix2x2 m_K;
+    QGenericMatrix<2,2,double> m_K;
 
     //these are rectangles which make up the robot's appearance
     QRectF m_body;
@@ -38,7 +38,7 @@ public:
     //constructor
     //takes pointer to vector of lights, K matrix, and an initial position.
     //TODO: Qpoint instead of Position, assume angle = 0;
-    Robot(QVector<Light> *lights, QMatrix2x2 K, QPointF position, QGraphicsItem *parent = 0);
+    Robot(QVector<Light> *lights, QGenericMatrix<2,2,double> K, QPointF position, QGraphicsItem *parent = 0);
 
     //updates the robot's position and rotation
     void update();
